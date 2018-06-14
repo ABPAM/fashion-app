@@ -1,0 +1,10 @@
+<div class="center-align">
+	<h2>
+		Here goes a shopping cart or a login form, if you explicitly want to 
+		sell products to registered users.
+	</h2>
+	
+	<br>
+
+	<a href="#/home" class="btn waves-light"><i class="material-icons">home</i> Go back to home</a>
+</div>

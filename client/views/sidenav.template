@@ -1,0 +1,16 @@
+<li>
+    <div class="user-view">
+        <div class="background">
+            <img src="images/hangers.jpg">
+        </div>
+
+        <a href="#user"><img class="circle" src="images/man.jpg"></a>
+        <a href="#name"><span class="white-text name">Unknown user</span></a>
+        <a href="#email"><span class="white-text email">john_doe&#64;example.com</span></a>
+    </div>
+</li>
+<li><a class="subheader">Main Menu</a></li>
+	<li><a class="waves-effect" href="#/home">All products</a></li>
+<% $.each(jsonData, function (i, category) { %>
+    <li><a class="waves-effect" href="#/category/<%= category.cat_id %>"><%= category.cat_name %></a></li>
+<% }); %>

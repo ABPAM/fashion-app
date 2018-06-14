@@ -1,0 +1,25 @@
+<div class="row">
+	<% $.each(jsonData, function (i, item) { %>
+
+		<div class="col s4">
+			<div class="card">
+				<div class="card-image">
+					<img src="data:image/jpeg;base64,<%= item.prod_image %>">
+				</div>
+				<div class="card-content">
+					<span class="card-title"><%= item.prod_name %></span>
+					<p>
+						Rating: <%= item.rating %>
+
+						<br>
+						Size: <%= (item.prod_size).toUpperCase() %><br>
+						Color: <%= item.color_name %><br>
+						Material: <%= item.material_name %><br>
+						<br>
+						<a href="#/product/<%= item.prod_id %>" class="btn waves-light"><i class="material-icons left">info</i>See product</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	<% }); %>
+</div>

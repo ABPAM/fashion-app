@@ -1,0 +1,117 @@
+<% var item = jsonData; %>
+<div class="row">
+	
+	<div class="col s12 m8">
+		<img class="product-image" src="data:image/jpeg;base64,<%= item.prod_image %>">
+	</div>
+	<div class="col s12 m4">
+		<p>
+			<h5><%= item.prod_name %></h5>
+			<br>
+			<b>Size: </b><%= (item.prod_size).toUpperCase() %><br>
+			<b>Color: </b><%= item.color_name %><br>
+			<b>Material: </b><%= item.material_name %><br>
+			<b>Rating: </b><span class="rating"><%= item.rating %></span><br>
+
+			<form action="#/rate/<%= item.prod_id %>" method="post" id="rating-form">
+				<p>
+					<label>
+						<input name="userRating" value="1" type="radio" />
+						<span>1 - Awful!</span>
+					</label>
+				</p>
+				<p>
+					<label>
+						<input name="userRating" value="2" type="radio" />
+						<span>2 - Not good.</span>
+					</label>
+				</p>
+				<p>
+					<label>
+						<input name="userRating" checked value="3" type="radio"  />
+						<span>3 - It's OK, I guess.</span>
+					</label>
+				</p>
+				<p>
+					<label>
+						<input name="userRating" value="4" type="radio" />
+						<span>4 - Very good!</span>
+					</label>
+				</p>
+				<p>
+					<label>
+						<input name="userRating" value="5" type="radio" />
+						<span>5 - Awesome!</span>
+					</label>
+				</p>
+				<p>
+					<button type="submit" class="btn waves-light">Rate Item</button>
+				</p>
+			</form>
+			<br>
+			<b>Description: </b><br>
+			<%= item.prod_description %>
+			<br><br>
+			<a href="#/purchase-product/<%= item.prod_id %>" class="btn waves-light">
+				<i class="material-icons">shopping_cart</i>
+				Purcahse: <b>$<%= item.prod_price %></b>
+			</a>
+		</p>
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col s12 m12 l12">
+		<h5>Combine with:</h5>
+	</div>
+</div>
+
+<% $.each(item.sets, function(i, set) { %>
+<div class="row">
+	<% 
+		var setPrice = 0;
+
+		$.each(set.set_items, function(i, set_item){ 
+
+			setPrice += parseFloat(set_item.prod_price);
+	%>
+		<div class="col s3">
+			<%
+				var currItem = '';
+				if(set_item.prod_id == item.prod_id)
+				{
+					currItem = ' blue lighten-3';
+				}
+			%>
+			<div class="card<%= currItem %>">
+				<div class="card-image waves-effect waves-block waves-light">
+					<img class="activator" src="data:image/jpeg;base64,<%= set_item.prod_image %>">
+				</div>
+			
+				<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4"><%= set_item.prod_name %><i class="material-icons right">more_vert</i></span>
+					<p><a href="#/product/<%= set_item.prod_id %>" class="btn waves-light"><i class="material-icons left">info</i>See product</a></p>
+				</div>
+			
+				<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4"><%= set_item.prod_name %><i class="material-icons right">close</i></span>
+					<p>
+						Size: <%= (set_item.prod_size).toUpperCase() %><br>
+						Color: <%= set_item.color_name %><br>
+						Material: <%= set_item.material_name %>
+					</p>
+					<p>
+						<a href="#/product/<%= item.prod_id %>" class="btn waves-light"><i class="material-icons left">info</i>See product</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+	<% }); %>
+
+	<div class="col s3">
+		<a href="#/purchase-set/<%= set.set_id %>" class="btn waves-light"><i class="material-icons">shopping_cart</i><b>$<%= setPrice.toFixed(2) %></b><br>Purchase this set</a>
+	</div>
+</div>
+<% }); %>
